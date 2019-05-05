@@ -1,0 +1,84 @@
+<h3>{{title}} - {{displayEntrada}}</h3>
+<!-- Añadimos un pequeño formulario. -->
+<div>
+    <input [ngStyle]="{'font-size' : '15px'}" name="query" placeholder="Introduzca su búsqueda." [(ngModel)]="searchEntrada" />
+    <!-- [(ngModel)] para almacenar "query" en "searchEntrada" y poder realizar la búsqueda.
+	Los () son obligados. -->
+    <button [ngStyle]="{'heigth': '15px'}" (click)="metodoEnviarEntrada()">Submit</button>
+    <h2>
+        O elija un enlace ...
+    </h2>
+    <!-- Routing -->
+    <nav>
+        <strong>
+			<span>&#8810; </span>
+			<a routerLink="/" routerLinkActive="active">
+				<button>Home</button>
+			</a>
+			<span> &#8811;</span>
+		</strong>
+    </nav>
+</div>
+<!-- El evento (click) para hacer la llamada al método. -->
+<!-- *ng Directivas Estructurales de Angular -->
+<!-- Para comprobar que se han cargado los resultados -->
+<div>
+    <div *ngIf="searchMostrados; else elseBlock">
+        <h3 class="total">
+            <!-- Elementos de la Interface entre {{}} -->
+            Resultados totales: {{searchResultados.items.length}}
+        </h3>
+        <p>
+            git-search works! {{metodoIniciarBotones()}}
+        </p>
+        <div class="botones">
+            <p>
+                <button class="anterior" (click)="metodoPaginaMenos()"> Pág. Ant. </button>
+                <span> - </span>
+                <button class="siguiente" (click)="metodoPaginaMas()"> Pág. Sig. </button>
+            </p>
+            <strong>
+				<p class="datos"></p>
+			</strong>
+        </div>
+        <ul class="lista">
+            <!-- <li [ngStyle]="{'background-color' : (i % 2 === 0) ? 'silver' : 'white'}" class="item_lista"
+				*ngFor="let resultado of searchMostrados.items; index as i"> -->
+            <!-- o (cambiando el CSS) -->
+            <!-- <li class="item_lista" *ngFor="let resultado of searchMostrados.items; index as i"> -->
+            <!-- Ahora con [ngClass] (también se cambia el CSS)
+				obligatoriamente se usan class del CSS -->
+            <li class="item_lista" *ngFor="let resultado of searchMostrados.items; index as i" [ngClass]="{
+				'par' : (i % 2) === 0,
+				'impar' : (i % 2) === 1
+			}">
+                <!-- Atributos html entre [] -->
+                <a [href]="resultado.html_url">
+                    <img class="avatar" [src]="resultado.owner.avatar_url">
+                    <div class="titulo">
+                        <!-- Un primer filtro, PIPE -->
+                        {{resultado.name}} por {{resultado.owner.login | uppercase}}
+                    </div>
+                </a>
+                <p class="descripcion">
+                    {{resultado.description}}
+                </p>
+                <p>
+                    <!-- Con o sin comillas, mayús o minús el tipo "fulldate" -->
+                    Created On: {{resultado.created_at | date: fullDate}}
+                </p>
+            </li>
+        </ul>
+        <div class="botones">
+            <p>
+                <button class="anterior" (click)="metodoPaginaMenos()"> Pág. Ant. </button>
+                <span> - </span>
+                <button class="siguiente" (click)="metodoPaginaMas()"> Pág. Sig. </button>
+            </p>
+            <strong>
+				<p class="datos"></p>
+			</strong>
+        </div>
+    </div>
+    <ng-template #elseBlock><strong style="font-size: 1.5em">Cargando ...</strong></ng-template>
+</div>

@@ -1,0 +1,47 @@
+.total {
+    font-size: 24px;
+}
+
+.lista {
+    list-style-type: none;
+}
+
+.item_lista {
+    border: 1px solid black;
+    height: 165px;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.par {
+    background-color: silver
+}
+
+.impar {
+    background-color: white;
+}
+
+
+/* .item_lista:nth-child(odd) {
+    background-color: silver;
+} */
+
+
+/* .item_lista:nth-child(even) {
+    background-color: white;
+} */
+
+.avatar {
+    height: 150px;
+    width: 150px;
+    float: left;
+}
+
+.titulo {
+    font-size: 20px;
+}
+
+.descripcion {
+    font-size: 18px;
+}
